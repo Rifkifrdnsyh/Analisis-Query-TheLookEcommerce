@@ -31,6 +31,22 @@ WHERE
     Penjelasan:
     COUNT(*): Menghitung total pengguna baru.
     WHERE created_at: Membatasi hasil hanya untuk pengguna yang mendaftar di tahun 2024.
-    
+
+# 3. Total Penjualan Pada Tahun 2024
+SELECT 
+    SUM(oi.product_id * p.retail_price) AS total_sales
+FROM 
+    bigquery-public-data.thelook_ecommerce.orders o
+JOIN 
+     bigquery-public-data.thelook_ecommerce.order_items oi ON o.order_id = oi.order_id
+JOIN 
+     bigquery-public-data.thelook_ecommerce.products p ON oi.product_id = p.id
+WHERE 
+    o.created_at BETWEEN '2024-01-01' AND '2024-12-31'
+
+    Penjelasan:
+    SUM(oi.quantity * p.price): Menghitung total penjualan dengan mengalikan jumlah item yang dipesan dengan harga produk.
+    JOIN: digunakan untuk menggabungkan tabel Orders, Order_Items, dan Products berdasarkan kunci terkait.
+    WHERE: membatasi hasil untuk tahun 2024.
     
     

@@ -63,7 +63,7 @@ ORDER BY
     o.created_at DESC
 
     Penjelasan:
-    Where: Menampilkan rincian pesanan dengan status pembayaran tertentu (misalnya, "Completed").
+    Where: Menampilkan rincian pesanan dengan status pembayaran Complete.
     Order by: Mengurutkan hasil berdasarkan tanggal pesanan terbaru.
 
 # 5. Jumlah Pengguna Berdasarkan Jenis Kelamin
@@ -89,7 +89,7 @@ FROM
     bigquery-public-data.thelook_ecommerce.orders
 
     Penjelasan:
-    COUNT: Menghitung persentase pesanan dengan status pembayaran "Completed" terhadap total pesanan.
+    COUNT: Menghitung persentase pesanan dengan status pembayaran Complete terhadap total pesanan.
 
 # 7. Jumlah Pengguna Berdasarkan Negara
 SELECT 
@@ -123,4 +123,31 @@ ORDER BY
     Group by: Mengurutkan berdasarkan sumber
     Order by: Menghitung jumlah pengguna berdasarkan jenis sumber dan mengurutkan dari yang terbanyak.
 
-# 9. 
+# 9. Jumlah Pesanan Status Complete
+SELECT 
+    COUNT(*) AS successful_orders
+FROM 
+    bigquery-public-data.thelook_ecommerce.orders
+WHERE 
+    status = 'Complete'
+
+    Penjelasan:
+    COUNT: Menghitung jumlah pesanan dengan status pembayaran "Complete".
+    WHERE: Menampilkan rincian pesanan dengan status pembayaran Complete.
+
+# 10. Jumlah Produk Pada Setiap Kategori
+SELECT
+    category,
+    COUNT(*) AS total_products
+FROM 
+  bigquery-public-data.thelook_ecommerce.products
+GROUP BY 
+    category
+ORDER BY 
+    total_products DESC
+
+    Penjelasan: 
+    COUNT: Menghitung jumlah produk
+    Group by: Mengelompokkan produk berdasarkan kategori dan menghitung jumlah produk dalam setiap kategori.
+
+    

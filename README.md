@@ -48,5 +48,79 @@ WHERE
     SUM(oi.quantity * p.price): Menghitung total penjualan dengan mengalikan jumlah item yang dipesan dengan harga produk.
     JOIN: digunakan untuk menggabungkan tabel Orders, Order_Items, dan Products berdasarkan kunci terkait.
     WHERE: membatasi hasil untuk tahun 2024.
-    
-    
+
+# 4. Menampilkan Rincian Pesanan Complete
+SELECT 
+    o.order_id AS order_id,
+    o.user_id,
+    o.status,
+    o.created_at
+FROM 
+   bigquery-public-data.thelook_ecommerce.orders o
+   WHERE 
+    o.status = 'Complete'
+ORDER BY 
+    o.created_at DESC
+
+    Penjelasan:
+    Where: Menampilkan rincian pesanan dengan status pembayaran tertentu (misalnya, "Completed").
+    Order by: Mengurutkan hasil berdasarkan tanggal pesanan terbaru.
+
+# 5. Jumlah Pengguna Berdasarkan Jenis Kelamin
+SELECT 
+    gender,
+    COUNT(id) AS total_users
+FROM 
+   bigquery-public-data.thelook_ecommerce.users 
+GROUP BY 
+    gender
+ORDER BY 
+    total_users DESC
+
+    Penjelasa:
+    COUNT(id): Menghitung jumlah id
+    Group by: Mengurutkan berdasarkan gender
+    Order by: Menghitung jumlah pengguna berdasarkan jenis kelamin dan mengurutkan dari yang terbanyak.
+
+# 6. Menghitung Presentase Jumlah Pesanan Dengan Status Complete
+SELECT
+    COUNT(CASE WHEN status = 'Complete' THEN 1 END) * 100.0 / COUNT(*) AS success_payment_percentage
+FROM 
+    bigquery-public-data.thelook_ecommerce.orders
+
+    Penjelasan:
+    COUNT: Menghitung persentase pesanan dengan status pembayaran "Completed" terhadap total pesanan.
+
+# 7. Jumlah Pengguna Berdasarkan Negara
+SELECT 
+    country,
+    COUNT(id) AS total_users
+FROM 
+   bigquery-public-data.thelook_ecommerce.users 
+GROUP BY 
+    country
+ORDER BY 
+    total_users DESC
+
+    Penjelasan: 
+    COUNT: menghitung jumlah id pada setiap negara
+    Group by: Mengurutkan berdasarkan country
+    Order by: Menghitung jumlah pengguna berdasarkan negara dan mengurutkan dari yang terbanyak.
+
+# 8. Jumlah Pengguna Berdasarkan Jenis Sumber 
+SELECT 
+    traffic_source,
+    COUNT(id) AS total_users
+FROM 
+   bigquery-public-data.thelook_ecommerce.users 
+GROUP BY 
+    traffic_source
+ORDER BY 
+    total_users DESC
+
+    Penjelasan:
+    COUNT: menghitung jumlah id pada setiap sumber
+    Group by: Mengurutkan berdasarkan sumber
+    Order by: Menghitung jumlah pengguna berdasarkan jenis sumber dan mengurutkan dari yang terbanyak.
+
+# 9. 
